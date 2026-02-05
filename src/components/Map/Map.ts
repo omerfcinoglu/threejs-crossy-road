@@ -1,15 +1,22 @@
 import * as THREE from "three";
 import { Grass } from "./Grass";
-import { Tree } from "./Objects/Tree";
-import { Road } from "./Road";
-import { Car } from "./Objects/Car";
-import { Truck } from "./Objects/Truck";
 import { metaData } from "../../Data";
+import type { IRowBuilder } from "./Builders/RowBuilder";
+import { ForestRowBuilder } from "./Builders/ForestRowBuilder";
+import { CarRowBuilder } from "./Builders/CarRowBuilder";
+import { TruckRowBuilder } from "./Builders/TruckRowBuilder";
 
 export class Map {
   public group: THREE.Group;
+  private readonly rowBuilders: IRowBuilder[];
+
   constructor() {
     this.group = new THREE.Group();
+    this.rowBuilders = [
+      new ForestRowBuilder(),
+      new CarRowBuilder(),
+      new TruckRowBuilder(),
+    ];
     this.init();
     this.addRow();
   }
@@ -23,39 +30,10 @@ export class Map {
 
   private addRow(): void {
     metaData.forEach((data, index) => {
-      if (data.type === "forest") {
-        const row = new Grass(index + 1);
-        data.trees?.forEach(({ tileIndex, height }) => {
-          const tree = new Tree(tileIndex, height);
-          row.group.add(tree.group);
-        });
-        this.group.add(row.group);
-      }
-      if (data.type === "car") {
-        const row = new Road(index + 1);
-        data.vehicles?.forEach((vehicle) => {
-          const car = new Car(
-            vehicle.initialTileIndex,
-            data.direction,
-            vehicle.color,
-          );
-          vehicle.ref = car.group;
-          row.group.add(car.group);
-        });
-        this.group.add(row.group);
-      }
-      if (data.type === "truck") {
-        const row = new Road(index + 1);
-        data.vehicles?.forEach((vehicle) => {
-          const truck = new Truck(
-            vehicle.initialTileIndex,
-            data.direction,
-            vehicle.color,
-          );
-          vehicle.ref = truck.group;
-          row.group.add(truck.group);
-        });
-        this.group.add(row.group);
+      const builder = this.rowBuilders.find((b) => b.canHandle(data.type));
+      if (builder) {
+        const row = builder.build(data, index + 1);
+        this.group.add(row);
       }
     });
   }
