@@ -4,6 +4,7 @@ import { Renderer } from "./components/Renderer";
 import { player } from "./components/Player/Player";
 import { Map } from "./components/Map/Map";
 import { DirectionalLight } from "./components/DirectionalLight";
+import VehiclesManager from "./managers/VehiclesManager";
 
 export class Game {
   private scene!: THREE.Scene;
@@ -13,11 +14,14 @@ export class Game {
   private map!: Map;
   private renderer!: THREE.WebGLRenderer;
 
+  private vehicleMng!: VehiclesManager;
+
   constructor() {
-    this.init();
+    this.initManagers();
+    this.initScene();
   }
 
-  private init(): void {
+  private initScene(): void {
     this.scene = new THREE.Scene();
     this.ambientLight = new THREE.AmbientLight();
     this.dirLight = DirectionalLight();
@@ -31,5 +35,13 @@ export class Game {
     this.scene.add(this.map.group);
     this.renderer = Renderer();
     this.renderer.render(this.scene, this.camera);
+    this.renderer.setAnimationLoop(() => {
+      this.vehicleMng.Move();
+      this.renderer.render(this.scene, this.camera);
+    });
+  }
+
+  private initManagers(): void {
+    this.vehicleMng = new VehiclesManager();
   }
 }

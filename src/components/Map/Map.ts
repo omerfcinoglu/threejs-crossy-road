@@ -8,7 +8,6 @@ import { metaData } from "../../Data";
 
 export class Map {
   public group: THREE.Group;
-
   constructor() {
     this.group = new THREE.Group();
     this.init();
@@ -40,6 +39,7 @@ export class Map {
             data.direction,
             vehicle.color,
           );
+          vehicle.ref = car.group;
           row.group.add(car.group);
         });
         this.group.add(row.group);
@@ -52,6 +52,7 @@ export class Map {
             data.direction,
             vehicle.color,
           );
+          vehicle.ref = truck.group;
           row.group.add(truck.group);
         });
         this.group.add(row.group);
