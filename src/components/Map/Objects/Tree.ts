@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { MAP } from "../../config/constants";
+import { MAP } from "../../../config/constants";
 
 export class Tree {
   public readonly group: THREE.Group;
@@ -28,7 +28,7 @@ export class Tree {
     const geometry = new THREE.BoxGeometry(
       MAP.tileSize / 2,
       MAP.tileSize / 2,
-      (MAP.tileSize / 2) * height
+      (MAP.tileSize / 2) * height,
     );
     const material = new THREE.MeshLambertMaterial({ color: 0x228b22 });
     const mesh = new THREE.Mesh(geometry, material);
