@@ -12,6 +12,8 @@ class Player {
     );
 
     this.body.position.z = 10;
+    this.body.castShadow = true;
+    this.body.receiveShadow = true;
   }
 }
 

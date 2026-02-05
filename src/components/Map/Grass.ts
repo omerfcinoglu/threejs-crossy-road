@@ -10,10 +10,11 @@ export class Grass {
 
     this.#mesh = new THREE.Mesh(
       new THREE.BoxGeometry(MAP.tilesPerRow * MAP.tileSize, MAP.tileSize, 3),
-      new THREE.MeshLambertMaterial({ color: 0xbaf455 })
+      new THREE.MeshLambertMaterial({ color: 0xbaf455 }),
     );
 
     this.#mesh.position.z = 1.5;
+    this.#mesh.receiveShadow = true;
     this.group.add(this.#mesh);
   }
 }

@@ -24,12 +24,16 @@ export class Truck {
     );
     cargo.position.x = -15;
     cargo.position.z = 25;
+    cargo.castShadow = true;
+    cargo.receiveShadow = true;
     this.group.add(cargo);
 
     const cabin = new THREE.Mesh(
       new THREE.BoxGeometry(30, 30, 30),
       new THREE.MeshLambertMaterial({ color, flatShading: true }),
     );
+    cabin.castShadow = true;
+    cabin.receiveShadow = true;
     cabin.position.x = 35;
     cabin.position.z = 20;
     this.group.add(cabin);

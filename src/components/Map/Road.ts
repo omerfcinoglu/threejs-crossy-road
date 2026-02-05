@@ -14,6 +14,7 @@ export class Road {
     );
 
     this.#mesh.position.z = 1.5;
+    this.#mesh.receiveShadow = true;
     this.group.add(this.#mesh);
   }
 }

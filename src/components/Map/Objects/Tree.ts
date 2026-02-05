@@ -33,6 +33,8 @@ export class Tree {
     const material = new THREE.MeshLambertMaterial({ color: 0x228b22 });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.z = this.trunkHeight + (MAP.tileSize / 4) * height;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
     return mesh;
   }
 }

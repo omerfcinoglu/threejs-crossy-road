@@ -28,6 +28,8 @@ export class Car {
     );
     cabin.position.x = -6;
     cabin.position.z = 25.5;
+    cabin.castShadow = true;
+    cabin.receiveShadow = true;
     this.group.add(cabin);
 
     const frontWheel = Wheel(18);

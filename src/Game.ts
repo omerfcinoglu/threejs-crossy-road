@@ -3,6 +3,7 @@ import { Camera } from "./components/Camera";
 import { Renderer } from "./components/Renderer";
 import { player } from "./components/Player/Player";
 import { Map } from "./components/Map/Map";
+import { DirectionalLight } from "./components/DirectionalLight";
 
 export class Game {
   private scene!: THREE.Scene;
@@ -19,8 +20,7 @@ export class Game {
   private init(): void {
     this.scene = new THREE.Scene();
     this.ambientLight = new THREE.AmbientLight();
-    this.dirLight = new THREE.DirectionalLight();
-    this.dirLight.position.set(-100, -100, -100);
+    this.dirLight = DirectionalLight();
     this.scene.add(this.ambientLight);
     this.scene.add(this.dirLight);
 
