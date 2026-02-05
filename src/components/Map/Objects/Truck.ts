@@ -16,7 +16,7 @@ export class Truck {
     if (!direction) this.group.rotation.z = Math.PI;
 
     const cargo = new THREE.Mesh(
-      new THREE.BoxGeometry(70, 35, 35),
+      new THREE.BoxGeometry(70, 33, 35),
       new THREE.MeshLambertMaterial({
         color: 0xb4c6fc,
         flatShading: true,
